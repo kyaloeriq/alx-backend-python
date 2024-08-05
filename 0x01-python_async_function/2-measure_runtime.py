@@ -5,13 +5,17 @@ Module to measure the runtime of asynchronous coroutines
 
 import asyncio
 import time
-from typing import List
-from 0-basic_async_syntax import wait_n
+import importlib.util
 
+# Dynamically import wait_n from 0-basic_async_syntax.py
+spec = importlib.util.spec_from_file_location("wait_n", "./0-basic_async_syntax.py")
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+wait_n = module.wait_n
 
 def measure_time(n: int, max_delay: int) -> float:
     """
-    Measures the total execution time for wait_n(n, max_delay)
+    Measure the total execution time for wait_n(n, max_delay)
     """
     start_time = time.perf_counter()
     asyncio.run(wait_n(n, max_delay))
