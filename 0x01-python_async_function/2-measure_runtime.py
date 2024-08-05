@@ -8,10 +8,10 @@ import time
 import importlib.util
 
 # Dynamically import wait_n from 0-basic_async_syntax.py
-spec = importlib.util.spec_from_file_location("wait_n", "./0-basic_async_syntax.py")
-module = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(module)
-wait_n = module.wait_n
+spec = importlib.util.spec_from_file_location("basic_async_syntax", "./0-basic_async_syntax.py")
+basic_async_syntax = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(basic_async_syntax)
+wait_n = basic_async_syntax.wait_n
 
 def measure_time(n: int, max_delay: int) -> float:
     """
