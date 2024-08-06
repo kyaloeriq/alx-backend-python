@@ -6,7 +6,7 @@ Module contains coroutines for generating and collecting random numbers
 import asyncio
 import time
 from typing import List
-from 1-async_comprehension.py import async_comprehension
+from 1-async_comprehension import async_comprehension
 
 async def measure_runtime() -> float:
     """
