@@ -3,7 +3,6 @@
 This module contains coroutines for generating and collecting random numbers.
 """
 
-import asyncio
 from typing import List
 from 0-async_generator import async_generator
 
