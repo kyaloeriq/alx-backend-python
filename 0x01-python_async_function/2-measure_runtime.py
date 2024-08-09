@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
-Module to measure the runtime of asynchronous coroutines
+Module to measure the runtime of asynchronous coroutines.
 """
 
 import asyncio
 import time
 import importlib.util
 import sys
+from typing import Any
 
-def import_module_from_file(module_name: str, file_path: str):
+def import_module_from_file(module_name: str, file_path: str) -> Any:
     """
     Dynamically import a module from a file path.
     """
@@ -24,7 +25,7 @@ wait_n = getattr(module, "wait_n")
 
 def measure_time(n: int, max_delay: int) -> float:
     """
-    Measure the total execution time for wait_n(n, max_delay)
+    Measure the total execution time for wait_n(n, max_delay).
     """
     start_time = time.perf_counter()
     asyncio.run(wait_n(n, max_delay))
