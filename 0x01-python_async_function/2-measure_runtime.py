@@ -9,6 +9,7 @@ import importlib.util
 import sys
 from typing import Any
 
+
 def import_module_from_file(module_name: str, file_path: str) -> Any:
     """
     Dynamically import a module from a file path.
@@ -20,8 +21,13 @@ def import_module_from_file(module_name: str, file_path: str) -> Any:
     return module
 
 # Dynamically import wait_n from 1-concurrent_coroutines
-module = import_module_from_file("concurrent_coroutines", "./1-concurrent_coroutines")
+
+
+module = import_module_from_file(
+        "concurrent_coroutines", "./1-concurrent_coroutines"
+        )
 wait_n = getattr(module, "wait_n")
+
 
 def measure_time(n: int, max_delay: int) -> float:
     """
