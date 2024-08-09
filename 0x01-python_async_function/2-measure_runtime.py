@@ -5,13 +5,11 @@ Module to measure the runtime of asynchronous coroutines.
 
 import asyncio
 import time
-from typing import Any
-
 from 1-concurrent_coroutines import wait_n
 
 def measure_time(n: int, max_delay: int) -> float:
     """
-    Measure the total execution time for wait_n(n, max_delay).
+    Measure the total execution time for wait_n(n, max_delay)
     """
     start_time: float = time.perf_counter()
     asyncio.run(wait_n(n, max_delay))
