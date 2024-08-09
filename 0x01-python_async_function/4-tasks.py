@@ -5,7 +5,7 @@ Module to run multiple asyncio.Tasks concurrently using task_wait_random.
 
 import asyncio
 from typing import List
-from 1-concurrent_coroutines import task_wait_random
+from 0-basic_async_syntax import task_wait_random
 
 async def task_wait_n(n: int, max_delay: int) -> List[float]:
     """
@@ -18,5 +18,6 @@ async def task_wait_n(n: int, max_delay: int) -> List[float]:
     Returns:
         List[float]: List of delays in the order they were completed.
     """
-    tasks = [task_wait_random(max_delay) for _ in range(n)]
-    return [await task for task in asyncio.as_completed(tasks)]
+    tasks: List[asyncio.Task] = [task_wait_random(max_delay) for _ in range(n)]
+    completed_tasks: List[float] = [await task for task in asyncio.as_completed(tasks)]
+    return completed_tasks
