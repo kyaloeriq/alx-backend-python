@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Task: Write a unit test for the GithubOrgClient._public_repos_url method in client.py using unittest and patch.
+# Task: Write a unit test for the GithubOrgClient._public_repos_url method
+# in client.py using unittest and patch.
 
 import unittest
 from unittest.mock import patch
@@ -26,7 +27,9 @@ class TestGithubOrgClient(unittest.TestCase):
         result = client.org
 
         # Assert get_json was called once with the expected URL
-        mock_get_json.assert_called_once_with(f"https://api.github.com/orgs/{org_name}")
+        mock_get_json.assert_called_once_with(
+            f"https://api.github.com/orgs/{org_name}"
+        )
 
         # Assert the result is what we expect
         self.assertEqual(result, {"login": org_name})
@@ -36,7 +39,9 @@ class TestGithubOrgClient(unittest.TestCase):
         ("abc", "https://api.github.com/orgs/abc/repos"),
     ])
     def test_public_repos_url(self, org_name, expected_url):
-        """Test that _public_repos_url returns the correct URL based on the mocked org property."""
+        """Test that _public_repos_url returns the correct URL based on the
+        mocked org property.
+        """
         # Patch GithubOrgClient.org to return a known payload
         with patch.object(GithubOrgClient, 'org', new_callable=property) as mock_org:
             mock_org.return_value = {"repos_url": expected_url}
@@ -49,3 +54,4 @@ class TestGithubOrgClient(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
