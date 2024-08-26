@@ -7,6 +7,7 @@ from unittest.mock import patch, Mock
 from parameterized import parameterized
 from utils import access_nested_map, get_json, memoize
 
+
 class TestAccessNestedMap(unittest.TestCase):
     """Test case for access_nested_map function."""
 
@@ -29,6 +30,7 @@ class TestAccessNestedMap(unittest.TestCase):
             access_nested_map(nested_map, path)
         self.assertEqual(str(cm.exception), repr(path[-1]))
 
+
 class TestGetJson(unittest.TestCase):
     """Test case for get_json function."""
 
@@ -47,11 +49,12 @@ class TestGetJson(unittest.TestCase):
         # Call get_json with the test URL
         result = get_json(test_url)
 
-        # Assert that the mock's get method was called exactly once with the test_url
+        # Assert that the mock's get method was called exactly once
         mock_get.assert_called_once_with(test_url)
 
         # Assert that the result is equal to the test_payload
         self.assertEqual(result, test_payload)
+
 
 class TestMemoize(unittest.TestCase):
     """Test case for the memoize decorator."""
@@ -75,16 +78,19 @@ class TestMemoize(unittest.TestCase):
         obj = TestClass()
 
         # Replace a_method with a Mock to track calls
-        with unittest.mock.patch.object(obj, 'a_method', wraps=obj.a_method) as mock_method:
+        with unittest.mock.patch.object(
+                obj, 'a_method', wraps=obj.a_method
+                ) as mock_method:
             # First call to a_property, should call a_method
             result_first_call = obj.a_property()
-            mock_method.assert_called_once()  # a_method should have been called once
+            mock_method.assert_called_once()
             self.assertEqual(result_first_call, 42)
 
             # Second call to a_property, should return cached result
             result_second_call = obj.a_property()
-            mock_method.assert_called_once()  # a_method should not be called again
+            mock_method.assert_called_once()
             self.assertEqual(result_second_call, 42)
+
 
 if __name__ == "__main__":
     unittest.main()
