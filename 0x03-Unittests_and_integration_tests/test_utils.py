@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-# Task: Write a unit test for exceptions in utils.access_nested_map using unittest and parameterized.
-# Task: Write a unit test for the get_json function in utils.py using unittest and mock.
+# Task: Write unit tests for utils functions using unittest and parameterized.
+# Includes tests for access_nested_map, get_json, and memoize decorator.
 
 import unittest
 from unittest.mock import patch, Mock
 from parameterized import parameterized
-from utils import access_nested_map, get_json
+from utils import access_nested_map, get_json, memoize
 
 class TestAccessNestedMap(unittest.TestCase):
     """Test case for access_nested_map function."""
@@ -52,6 +52,39 @@ class TestGetJson(unittest.TestCase):
 
         # Assert that the result is equal to the test_payload
         self.assertEqual(result, test_payload)
+
+class TestMemoize(unittest.TestCase):
+    """Test case for the memoize decorator."""
+
+    def test_memoize(self):
+        """Test memoize caches results correctly."""
+
+        class TestClass:
+            """Class with a method to be memoized."""
+
+            def a_method(self):
+                """Simple method that returns a value."""
+                return 42
+
+            @memoize
+            def a_property(self):
+                """Method decorated with memoize."""
+                return self.a_method()
+
+        # Create an instance of TestClass
+        obj = TestClass()
+
+        # Replace a_method with a Mock to track calls
+        with unittest.mock.patch.object(obj, 'a_method', wraps=obj.a_method) as mock_method:
+            # First call to a_property, should call a_method
+            result_first_call = obj.a_property()
+            mock_method.assert_called_once()  # a_method should have been called once
+            self.assertEqual(result_first_call, 42)
+
+            # Second call to a_property, should return cached result
+            result_second_call = obj.a_property()
+            mock_method.assert_called_once()  # a_method should not be called again
+            self.assertEqual(result_second_call, 42)
 
 if __name__ == "__main__":
     unittest.main()
