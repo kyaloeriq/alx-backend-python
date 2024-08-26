@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Task: Write a unit test for the GithubOrgClient class in client.py using unittest and parameterized.
+# Task: Write a unit test for the GithubOrgClient class in client.py
 
 import unittest
 from unittest.mock import patch
@@ -28,7 +28,9 @@ class TestGithubOrgClient(unittest.TestCase):
         result = client.org
 
         # Assert get_json was called once with the expected URL
-        mock_get_json.assert_called_once_with(f"https://api.github.com/orgs/{org_name}")
+        mock_get_json.assert_called_once_with(
+                f"https://api.github.com/orgs/{org_name}"
+                )
 
         # Assert the result is what we expect
         self.assertEqual(result, {"login": org_name})
