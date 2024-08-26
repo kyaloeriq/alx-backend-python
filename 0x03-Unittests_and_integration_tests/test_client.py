@@ -43,7 +43,9 @@ class TestGithubOrgClient(unittest.TestCase):
         mocked org property.
         """
         # Patch GithubOrgClient.org to return a known payload
-        with patch.object(GithubOrgClient, 'org', new_callable=property) as mock_org:
+        with patch.object(
+                GithubOrgClient, 'org', new_callable=property
+                ) as mock_org:
             mock_org.return_value = {"repos_url": expected_url}
             client = GithubOrgClient(org_name)
             # Call _public_repos_url method
@@ -54,4 +56,3 @@ class TestGithubOrgClient(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
